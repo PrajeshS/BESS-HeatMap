@@ -18,7 +18,7 @@ st.markdown("""
 st.markdown('<div class="main-header">BESS Constraint Sensitivity Simulator: % Time at Min or Max SOC%</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
-st.sidebar.header("Simulation Parameters")
+st.sidebar.header("⚙️ Simulation Parameters")
 eff = st.sidebar.slider('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
 init_soc = st.sidebar.slider('Initial Year SOC (%)', 0, 100, 50) / 100.0
 soc_min_val = st.sidebar.slider('Min SOC (%)', 0, 50, 10) / 100.0
