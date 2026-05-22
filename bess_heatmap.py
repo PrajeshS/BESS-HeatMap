@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-st.set_page_config(page_title='BESS Constraint Explorer', layout='wide')
+st.set_page_config(page_title='BESS Constraint Explorer @ Initial Year SOC = 50%', layout='wide')
 
 # Sidebar Parameters
 st.sidebar.header("Sim Parameters")
