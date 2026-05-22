@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from numba import njit
 
-st.set_page_config(page_title='BESS Constraint Sensitivity Simulator: % Time at Min or Max SOC%', layout='wide')
+st.set_page_config(page_title='BESS Constraint Sensitivity Simulator', layout='wide')
 
 # --- Professional Engineering CSS ---
 st.markdown("""
@@ -15,7 +15,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Constraint Explorer</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Constraint Sensitivity Simulator: % Time at Min or Max SOC%</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("Simulation Parameters")
