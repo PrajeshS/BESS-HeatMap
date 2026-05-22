@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from numba import njit
 
-st.set_page_config(page_title='BESS Constraint Explorer', layout='wide')
+st.set_page_config(page_title='BESS Constraint Simulator', layout='wide')
 
 # --- Professional Engineering CSS ---
 st.markdown("""
@@ -16,14 +16,14 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Sizing & Constraint Explorer</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Constraint Sensitivity Simulator</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
-eff = st.sidebar.slider('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
-init_soc = st.sidebar.slider('Initial Year SOC (%)', 0, 100, 50) / 100.0
-soc_min_val = st.sidebar.slider('Min Operating SOC (%)', 0, 50, 10) / 100.0
-soc_max_val = st.sidebar.slider('Max Operating SOC (%)', 50, 100, 90) / 100.0
+eff = st.sidebar.number_input('One-Way Efficiency', 0.80, 1.0, 0.96, 0.01)
+init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
+soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
+soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
 
 @st.cache_data
 def load_pv():
@@ -84,7 +84,7 @@ with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
             matrix[i, j] = run_sim_fast(pv_data, p_val, e_val, eff, soc_min_val, soc_max_val, init_soc)
 
     # Fix: Used single quotes inside f-string to avoid escape sequence issues
-    cols = [f"{d}h ({1/d if d!=0 else 0:.1f}C)" for d in durations]
+    cols = [f"{d}h ({1/d if d!=0 else 0:.2f}C)" for d in durations]
     df = pd.DataFrame(matrix, index=powers, columns=cols)
 
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -95,4 +95,3 @@ with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
     plt.title("BESS Constraint Sensitivity Matrix")
     st.pyplot(fig)
 
-st.success("✅ Matrix updated with bottom-to-top Y-axis. Ready for deployment.")
