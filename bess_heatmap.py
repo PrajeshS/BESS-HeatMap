@@ -83,7 +83,7 @@ with st.spinner('Calculating Sensitivity Matrix...'):
             matrix[i, j] = run_sim_fast(pv_data, float(powers[i]), float(energies[j]), eff, soc_min_val, soc_max_val, init_soc)
 
     df = pd.DataFrame(matrix, index=powers, columns=energies)
-    fig, ax = plt.subplots(figsize=(9, 7))
+    fig, ax = plt.subplots(figsize=(7, 5))
     sns.heatmap(df, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Time at Limits'})
     ax.set_ylabel('Power (MW)')
     ax.set_xlabel('Energy (MWh)')
