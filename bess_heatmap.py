@@ -16,7 +16,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Constraint Sensitivity Simulator</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Constraint Sensitivity Simulator: % Time at Mi or Max SOC</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
@@ -67,15 +67,12 @@ def run_sim_fast(pv_data, p_cap, e_cap, eff_val, s_min, s_max, start_soc):
 
 pv_data = load_pv()
 
-st.sidebar.markdown("--- ")
-st.sidebar.header("🔍 Sizing Range")
-p_max = st.sidebar.number_input('Max Power to Test (MW)', 50, 200, 50)
 
 # Industry Standard Durations
 durations = [0.25, 0.5, 1.0, 2.0, 4.0]
 powers = np.arange(5, p_max + 5, 5)
 
-with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
+with st.spinner('Calculating...'):
     matrix = np.zeros((len(powers), len(durations)))
     for i in range(len(powers)):
         for j in range(len(durations)):
