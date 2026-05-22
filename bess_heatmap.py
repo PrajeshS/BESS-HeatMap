@@ -76,7 +76,7 @@ pv_data = load_pv()
 powers = np.arange(5, 55, 5)
 energies = np.arange(5, 55, 5)
 
-with st.spinner('Calculating High-Speed Sensitivity Matrix...'):
+with st.spinner('Calculating Sensitivity Matrix...'):
     matrix = np.zeros((len(powers), len(energies)))
     for i in range(len(powers)):
         for j in range(len(energies)):
