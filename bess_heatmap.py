@@ -74,7 +74,7 @@ durations = [0.25, 0.5, 1.0, 2.0, 4.0]
 # Fixed Power Range as requested
 powers = np.arange(5, 45, 5) # 5, 10, 15, 20, 25
 
-    matrix = np.zeros((len(powers), len(durations)))
+matrix = np.zeros((len(powers), len(durations)))
     for i in range(len(powers)):
         for j in range(len(durations)):
             p_val = float(powers[i])
