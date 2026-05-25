@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from numba import njit
 
-st.set_page_config(page_title='BESS Constraint Explorer', layout='wide')
+st.set_page_config(page_title='BESS Constraint Sensitivty Simulator', layout='wide')
 
 # --- Professional Engineering CSS ---
 st.markdown("""
@@ -16,14 +16,14 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Sizing & Constraint Explorer</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Sizing Constraint Sensitivity Simulator</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
-eff = st.sidebar.slider('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
-init_soc = st.sidebar.slider('Initial Year SOC (%)', 0, 100, 50) / 100.0
-soc_min_val = st.sidebar.slider('Min Operating SOC (%)', 0, 50, 10) / 100.0
-soc_max_val = st.sidebar.slider('Max Operating SOC (%)', 50, 100, 90) / 100.0
+eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
+init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
+soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
+soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
 
 @st.cache_data
 def load_pv():
@@ -74,9 +74,9 @@ pv_data = load_pv()
 st.sidebar.markdown("--- ")
 
 durations = [0.25, 0.5, 1.0, 2.0, 4.0]
-powers = np.arange(5, 30, 5)
+powers = np.arange(5, 40, 5)
 
-with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
+with st.spinner('Generating Sensitivity Matrix...'):
     matrix = np.zeros((len(powers), len(durations)))
     for i in range(len(powers)):
         for j in range(len(durations)):
@@ -84,15 +84,14 @@ with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
             e_val = p_val * durations[j]
             matrix[i, j] = run_sim_fast(pv_data, p_val, e_val, eff, soc_min_val, soc_max_val, init_soc)
 
-    cols = [f"{d}h ({1/d if d!=0 else 0:.1f}C)" for d in durations]
+    cols = [f"{d}h ({1/d if d!=0 else 0:.2f}C)" for d in durations]
     df_res = pd.DataFrame(matrix, index=powers, columns=cols)
 
-    fig, ax = plt.subplots(figsize=(12, 8))
-    sns.heatmap(df_res, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Daytime at SOC Limits'})
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(df_res, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Time at SOC Limits'})
     ax.set_ylabel('BESS Power Rating (MW)')
     ax.set_xlabel('BESS Discharge Duration (Hours / C-Rate)')
     ax.invert_yaxis()
-    plt.title("BESS Constraint Sensitivity Matrix (Daytime Denominator)")
+    plt.title("BESS Constraint Sensitivity Matrix")
     st.pyplot(fig)
 
-st.success("✅ Matrix updated using daytime minutes as denominator.")
