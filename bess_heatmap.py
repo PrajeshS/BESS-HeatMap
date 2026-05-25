@@ -92,7 +92,7 @@ with st.spinner('Generating Sensitivity Matrix...'):
     cols = [f"{d}h ({1/d if d!=0 else 0:.2f}C)" for d in durations]
     df_res = pd.DataFrame(matrix, index=powers, columns=cols)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(9, 5))
     sns.heatmap(df_res, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Time at SOC Limits'})
     ax.set_ylabel('BESS Power Limit (MW)')
     ax.set_xlabel('BESS Discharge Duration (Hours / C-Rate)')
