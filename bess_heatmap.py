@@ -78,8 +78,8 @@ pv_data = load_pv()
 
 st.sidebar.markdown("--- ")
 
-durations = [0.25, 0.5, 1.0, 2.0, 4.0]
-powers = np.arange(5, 40, 5)
+durations = [0.25, 0.5, 0.75, 1.0]
+powers = np.arange(5, 35, 5)
 
 with st.spinner('Generating Sensitivity Matrix...'):
     matrix = np.zeros((len(powers), len(durations)))
