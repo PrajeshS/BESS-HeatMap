@@ -17,7 +17,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown('<div class="main-header">BESS Sizing Constraint Sensitivity Simulator</div>', unsafe_allow_html=True)
-st.write('This represents the frequency of stauration and depletion during operational hours.')
+
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
 eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
@@ -94,4 +94,4 @@ with st.spinner('Generating Sensitivity Matrix...'):
     ax.invert_yaxis()
     plt.title("BESS Constraint Sensitivity Matrix")
     st.pyplot(fig)
-
+st.write(' 💡 Note: This represents the frequency of saturation and depletion during operational hours.')
