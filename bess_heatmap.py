@@ -16,14 +16,14 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Sizing & Constraint Explorer</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Sizing Sensitivity Constraint</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
-eff = st.sidebar.slider('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
-init_soc = st.sidebar.slider('Initial Year SOC (%)', 0, 100, 50) / 100.0
-soc_min_val = st.sidebar.slider('Min Operating SOC (%)', 0, 50, 10) / 100.0
-soc_max_val = st.sidebar.slider('Max Operating SOC (%)', 50, 100, 90) / 100.0
+eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
+init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
+soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
+soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
 
 @st.cache_data
 def load_pv():
@@ -72,9 +72,9 @@ st.sidebar.markdown("--- ")
 # Industry Standard Durations
 durations = [0.25, 0.5, 1.0, 2.0, 4.0]
 # Fixed Power Range as requested
-powers = np.arange(5, 30, 5) # 5, 10, 15, 20, 25
+powers = np.arange(5, 40, 5) # 5, 10, 15, 20, 25
 
-with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
+with st.spinner('Generating Sensitivity Matrix...'):
     matrix = np.zeros((len(powers), len(durations)))
     for i in range(len(powers)):
         for j in range(len(durations)):
@@ -93,4 +93,4 @@ with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
     plt.title("BESS Constraint Sensitivity Matrix (Fixed 5-25MW Range)")
     st.pyplot(fig)
 
-st.success("✅ Matrix updated with fixed 25MW limit. Ready for deployment.")
+
