@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from numba import njit
 
-st.set_page_config(page_title='BESS Constraint Explorer', layout='wide')
+st.set_page_config(page_title='BESS Constraint Simulator', layout='wide')
 
 # --- Professional Engineering CSS ---
 st.markdown("""
@@ -20,7 +20,7 @@ st.markdown('<div class="main-header">BESS Sizing Sensitivity Constraint</div>',
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
-eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
+eff = st.sidebar.number_input('One-Way Efficiency', 0.80, 1.0, 0.96, 0.01)
 init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
 soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
 soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
@@ -72,7 +72,7 @@ st.sidebar.markdown("--- ")
 # Industry Standard Durations
 durations = [0.25, 0.5, 1.0, 2.0, 4.0]
 # Fixed Power Range as requested
-powers = np.arange(5, 40, 5) # 5, 10, 15, 20, 25
+powers = np.arange(5, 45, 5) # 5, 10, 15, 20, 25
 
 with st.spinner('Generating Sensitivity Matrix...'):
     matrix = np.zeros((len(powers), len(durations)))
@@ -90,7 +90,7 @@ with st.spinner('Generating Sensitivity Matrix...'):
     ax.set_ylabel('BESS Power Rating (MW)')
     ax.set_xlabel('BESS Discharge Duration (Hours / C-Rate)')
     ax.invert_yaxis()
-    plt.title("BESS Constraint Sensitivity Matrix (Fixed 5-25MW Range)")
+    plt.title("BESS Constraint Sensitivity Matrix")
     st.pyplot(fig)
 
 
