@@ -94,4 +94,4 @@ with st.spinner('Generating Sensitivity Matrix...'):
     ax.invert_yaxis()
     plt.title("BESS Constraint Sensitivity Matrix")
     st.pyplot(fig)
-st.write('*💡 Note: This represents the frequency of saturation and depletion during operational hours.*')
+st.write('*💡 Note: This represents the frequency of saturation or depletion during operational hours.*')
