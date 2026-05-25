@@ -24,7 +24,7 @@ eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
 init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
 soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
 soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
-st.write('*💡 Note: This represents the frequency of saturation and depletion during operational hours.*')
+
 @st.cache_data
 def load_pv():
     path = 'power time series 1 min (1)(in).csv'
