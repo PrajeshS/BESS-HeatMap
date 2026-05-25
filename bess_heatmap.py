@@ -24,6 +24,11 @@ eff = st.sidebar.number_input('One-Way Efficiency', 0.85, 1.0, 0.96, 0.01)
 init_soc = st.sidebar.number_input('Initial Year SOC (%)', 0, 100, 50) / 100.0
 soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.0
 soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
+st.sidebar.markdown("""
+    <div style='font-size: 0.80rem; color: #8b949e; font-style: italic; line-height: 1.4;'>
+        💡 <b>Note:</b> This simulation represents the frequency of saturation or depletion during operational hours.
+    </div>
+""", unsafe_allow_html=True)
 
 @st.cache_data
 def load_pv():
