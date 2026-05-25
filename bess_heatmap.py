@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from numba import njit
 
-st.set_page_config(page_title='BESS Constraint Simulator', layout='wide')
+st.set_page_config(page_title='BESS Constraint Sensitivity Simulator', layout='wide')
 
 # --- Professional Engineering CSS ---
 st.markdown("""
@@ -16,7 +16,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">BESS Sizing Sensitivity Constraint</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">BESS Sizing Constraint Sensitivity</div>', unsafe_allow_html=True)
 
 # Sidebar Parameters
 st.sidebar.header("⚙️ Simulation Parameters")
@@ -85,7 +85,7 @@ with st.spinner('Generating Sensitivity Matrix...'):
     cols = [f"{d}h ({1/d if d!=0 else 0:.1f}C)" for d in durations]
     df = pd.DataFrame(matrix, index=powers, columns=cols)
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(11, 7))
     sns.heatmap(df, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Time at SOC Limits'})
     ax.set_ylabel('BESS Power Rating (MW)')
     ax.set_xlabel('BESS Discharge Duration (Hours / C-Rate)')
