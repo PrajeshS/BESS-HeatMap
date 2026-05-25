@@ -89,7 +89,7 @@ with st.spinner('Generating Sensitivity Matrix...'):
 
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(df_res, annot=True, fmt='.2f', cmap='YlOrRd', ax=ax, cbar_kws={'label': '% Time at SOC Limits'})
-    ax.set_ylabel('BESS Power Rating (MW)')
+    ax.set_ylabel('BESS Power Limit (MW)')
     ax.set_xlabel('BESS Discharge Duration (Hours / C-Rate)')
     ax.invert_yaxis()
     plt.title("BESS Constraint Sensitivity Matrix")
