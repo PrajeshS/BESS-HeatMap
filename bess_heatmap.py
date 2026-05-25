@@ -74,12 +74,13 @@ durations = [0.25, 0.5, 1.0, 2.0, 4.0]
 # Fixed Power Range as requested
 powers = np.arange(5, 45, 5) # 5, 10, 15, 20, 25
 
-matrix = np.zeros((len(powers), len(durations)))
-for i in range(len(powers)):
-    for j in range(len(durations)):
-        p_val = float(powers[i])
-        e_val = p_val * durations[j]
-        matrix[i, j] = run_sim_fast(pv_data, p_val, e_val, eff, soc_min_val, soc_max_val, init_soc)
+with st.spinner('Generating Industry-Standard Sensitivity Matrix...'):
+    matrix = np.zeros((len(powers), len(durations)))
+    for i in range(len(powers)):
+        for j in range(len(durations)):
+            p_val = float(powers[i])
+            e_val = p_val * durations[j]
+            matrix[i, j] = run_sim_fast(pv_data, p_val, e_val, eff, soc_min_val, soc_max_val, init_soc)
 
     cols = [f"{d}h ({1/d if d!=0 else 0:.2f}C)" for d in durations]
     df = pd.DataFrame(matrix, index=powers, columns=cols)
