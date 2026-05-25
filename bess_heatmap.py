@@ -26,7 +26,7 @@ soc_min_val = st.sidebar.number_input('Min Operating SOC (%)', 0, 50, 10) / 100.
 soc_max_val = st.sidebar.number_input('Max Operating SOC (%)', 50, 100, 90) / 100.0
 st.sidebar.markdown("""
     <div style='font-size: 1.0rem; color: #8b949e; font-style: italic; line-height: 1.4;'>
-        💡 <b>Note:</b> This simulation represents the frequency of saturation or depletion during operational hours.
+        💡 <b>Note:</b> This simulation represents the annual frequency of saturation or depletion during operational hours.
     </div>
 """, unsafe_allow_html=True)
 
